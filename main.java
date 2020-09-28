@@ -1,59 +1,60 @@
 package projectileMotion;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class main {
-	public static void parser(){
-		double initVel = Integer.MAX_VALUE;
-		double accel = Integer.MAX_VALUE;
-		double deltaX = Integer.MAX_VALUE;
-		double time = Integer.MAX_VALUE;
+	public static boolean isANumber(String input) {//check if input is numeric
+	    if (input == null) {
+	        return false;
+	    }
+	    try {
+	        double d = Double.parseDouble(input);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	public static void parser() {
+		double[] values = new double[4];
+		values[0] = Integer.MAX_VALUE;//initial velocity
+		values[1] = Integer.MAX_VALUE;//acceleration
+		values[2] = Integer.MAX_VALUE;//displacement
+		values[3] = Integer.MAX_VALUE;//time
+		
 		int counter = 0;
 		String temp;
 		
-		Scanner console = new Scanner(System.in);
+		String[] inputMessages = new String[4];
+		inputMessages[0] = "Input initial Velocity.";
+		inputMessages[1] = "Input acceleration.";
+		inputMessages[2] = "Input displacement.";
+		inputMessages[3] = "Input time.";
 		
-		System.out.println("For unknown values, intput x."+'\n'+"Input initial Velocity.");//initial velocity
-		temp = console.nextLine();
-		if(!temp.equals("x")) {
-			initVel = Double.parseDouble(temp);
-		}
-		else {
-			counter++;
-		}
-		System.out.print(initVel);
-		System.out.println("Input acceleration.");//acceleration
-		temp = console.nextLine();
-		if(!temp.equals("x")) {
-			accel = Double.parseDouble(temp);
-		}
-		else {
-			counter++;
-		}
-		System.out.println("Input displacement.");//displacement
-		temp = console.nextLine();
-		if(!temp.equals("x")) {
-			deltaX = Double.parseDouble(temp);
-		}
-		else {
-			counter++;
-		}
-		System.out.println("Input time.");//time
-		temp = console.nextLine();
-		if(!temp.equals("x")) {
-			time = Double.parseDouble(temp);
-		}
-		else {
-			counter++;
-		}
+		Scanner console = new Scanner(System.in);//stores user input
 		
-		if(counter >= 2) {
-			System.out.println("Cannot solve, too many missing variables.");//error case
+		System.out.println("For unknown values, intput x.");
+		for(int i = 0; i < 4; i++) {//parse values into arrays
+			System.out.println(inputMessages[i]);//input message displayed
+			temp = console.nextLine();
+			if(temp.equals("q")) {
+				System.exit(0);
+			}
+			else if(isANumber(temp)) {//store valid inputs
+				values[i] = Double.parseDouble(temp);
+			}
+			else if(temp.equals("x") && counter<2){
+				counter++;
+			}
+			else {
+				System.out.println("User input cannot be computed.");
+				break;
+			}
 		}
-		else {
-			
-		}
+	
 	}
+	
 	public static double missing_initVel(double accel, double deltaX, double time) {
 		return 0;
 	}
@@ -68,8 +69,9 @@ public class main {
 	}
 	
 	public static void main(String[] args) {
-		parser();
-		
+		while(true) {
+			parser();
+		}
 	}
 }
 
