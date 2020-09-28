@@ -78,10 +78,12 @@ public class main {
 	}
 	
 	public static double missing_initVel(double accel, double deltaX, double time) {
-		return 1;
+		double val = (deltaX - ((0.5)*accel*(time*time)))/time;
+		return val;
 	}
-	public static double missing_accel(double accel, double deltaX, double time) {
-		return 2;
+	public static double missing_accel(double vel, double deltaX, double time) {
+		double val = (2*(deltaX - vel*time))/(time*time);
+		return val;
 	}
 	public static double missing_deltaX(double accel, double deltaX, double time) {
 		return 3;
