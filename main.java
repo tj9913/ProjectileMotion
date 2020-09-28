@@ -83,8 +83,10 @@ public class main {
 	public static double missing_accel(double accel, double deltaX, double time) {
 		return 2;
 	}
-	public static double missing_deltaX(double accel, double deltaX, double time) {
-		return 3;
+	public static double missing_deltaX(double initVel, double accel, double time) {
+		double val = 0.0;
+		val = initVel * time + (double)((.5)*accel*(Math.pow(time,2)));
+		return val;
 	}
 	public static double missing_time(double accel, double deltaX, double time) {
 		return 4;
